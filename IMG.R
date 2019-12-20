@@ -98,4 +98,4 @@ TEST_IMG$nome="???"
 TEST_IMG$var=cor_pix
 
 MIX_prediction <- predict(fit.rf, TEST_IMG)
-data.frame("Neo" = length(MIX_prediction[MIX_prediction=="Neo"])/900 ,"Mel" = length(MIX_prediction[MIX_prediction=="Mel"])/900)
+data.frame("Neo" = length(MIX_prediction[MIX_prediction=="Neo"])/length(MIX_prediction) ,"Mel" = length(MIX_prediction[MIX_prediction=="Mel"])/length(MIX_prediction))
