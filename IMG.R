@@ -1,57 +1,57 @@
 ##############################################################################################
 ###################################
-#CARREGANDO AS IMGS "NEO"
+#CARREGANDO AS IMGS "CHR"
 
 library(imager)
-Folder_Neo <- "C:/Users/T-Gamer/Desktop/Photos/Neo"
-files_Neo <- list.files(path = Folder_Neo, pattern = "*.jpg", full.names=TRUE)
-all_im_Neo <- lapply(files_Neo, load.image )
+Folder_CHR <- "C:/Users/T-Gamer/Desktop/Photos/CHR"
+files_CHR <- list.files(path = Folder_CHR, pattern = "*.jpg", full.names=TRUE)
+all_im_CHR <- lapply(files_CHR, load.image )
 
-for(i in 1:length(all_im_Neo)){
-  all_im_Neo[[i]]=as.data.frame(grayscale(imresize(all_im_Neo[[i]],1/10)))
+for(i in 1:length(all_im_CHR)){
+  all_im_CHR[[i]]=as.data.frame(grayscale(imresize(all_im_CHR[[i]],1/10)))
 }
-head(all_im_Neo[[1]])
+head(all_im_CHR[[1]])
 
 
 library(plyr) 
-resultados_Neo <- join_all(all_im_Neo,c("x","y")) 
-head(resultados_Neo)
+resultados_CHR <- join_all(all_im_CHR,c("x","y")) 
+head(resultados_CHR)
 
 library(tidyverse)
-resultado_Neo=resultados_Neo %>%
+resultado_CHR=resultados_CHR %>%
   pivot_longer(-c("x","y"), names_to = "nome", values_to = "var")
-resultado_Neo
-resultado_Neo$nome="Neo"
-resultado_Neo
+resultado_CHR
+resultado_CHR$nome="CHR"
+resultado_CHR
 
 ###################################
-#CARREGANDO AS IMGS "Mel"
+#CARREGANDO AS IMGS "BLH"
 
 library(imager)
-Folder_Mel <- "C:/Users/T-Gamer/Desktop/Photos/Mel"
-files_Mel <- list.files(path = Folder_Mel, pattern = "*.jpg", full.names=TRUE)
-all_im_Mel <- lapply(files_Mel, load.image )
-for(i in 1:length(all_im_Mel)){
-  all_im_Mel[[i]]=as.data.frame(grayscale(imresize(all_im_Mel[[i]],1/10)))
+Folder_BLH <- "C:/Users/T-Gamer/Desktop/Photos/BLH"
+files_BLH <- list.files(path = Folder_BLH, pattern = "*.jpg", full.names=TRUE)
+all_im_BLH <- lapply(files_BLH, load.image )
+for(i in 1:length(all_im_BLH)){
+  all_im_BLH[[i]]=as.data.frame(grayscale(imresize(all_im_BLH[[i]],1/10)))
 }
-head(all_im_Mel[[1]])
+head(all_im_BLH[[1]])
 
 
 library(plyr) 
-resultados_Mel <- join_all(all_im_Mel,c("x","y")) 
-head(resultados_Mel)
+resultados_BLH <- join_all(all_im_BLH,c("x","y")) 
+head(resultados_BLH)
 
-resultado_Mel=resultados_Mel %>%
+resultado_BLH=resultados_BLH %>%
   pivot_longer(-c("x","y"), names_to = "nome", values_to = "var")
-resultado_Mel
-resultado_Mel$nome="Mel"
-resultado_Mel
+resultado_BLH
+resultado_BLH$nome="BLH"
+resultado_BLH
 
 ##############################################################################################
 #COLOCANDO AS IMGS EM UM UNICO DATA FRAME
 
-MIX = as.data.frame(resultado_Neo)
-MAX = as.data.frame(resultado_Mel)
+MIX = as.data.frame(resultado_CHR)
+MAX = as.data.frame(resultado_BLH)
 
 for(i in 1:length(MAX[,1])){
   MIX[(length(MAX[,1])+i),] = MAX[i,]
@@ -65,7 +65,7 @@ MIX=MIX[,-4]
 
 library(caret)
 control <- trainControl(method='cv', number=10)
-metric <- 'Accuracy'
+
 
 sample <- createDataPartition(MIX$nome, p=0.85, list=FALSE)
 
@@ -79,7 +79,7 @@ length(MIX_test[,1])
 
 tune.grid <- expand.grid(mtry = 1:(ncol(MIX)-1))
 fit.rf <- train(nome~., data=MIX_train, method="rf",tuneGrid =tune.grid,
-                trControl=control)#,metric=metric)
+                trControl=control)
 
 MIX_prediction <- predict(fit.rf, MIX_test)
 confusionMatrix(MIX_prediction, as.factor(MIX_test$nome))
@@ -88,7 +88,8 @@ confusionMatrix(MIX_prediction, as.factor(MIX_test$nome))
 ##############################################################################################
 #TESTANDO O MODELO DE VERDADE
 
-TEST_IMG=load.image("C:/Users/T-Gamer/Desktop/Photos/IMG0022A.jpg")
+TEST_IMG=load.image("C:/Users/T-Gamer/Desktop/Photos/CHR.jpg")#ESCOLHA ESSA LINHA PARA TESTAR CACHORRO
+TEST_IMG=load.image("C:/Users/T-Gamer/Desktop/Photos/BLH.jpg")#ESCOLHA ESSA LINHA PARA TESTAR BOLINHO
 plot(TEST_IMG)
 
 TEST_IMG = as.data.frame(grayscale(imresize(TEST_IMG,1/10)))
@@ -98,4 +99,4 @@ TEST_IMG$nome="???"
 TEST_IMG$var=cor_pix
 
 MIX_prediction <- predict(fit.rf, TEST_IMG)
-data.frame("Neo" = length(MIX_prediction[MIX_prediction=="Neo"])/length(MIX_prediction) ,"Mel" = length(MIX_prediction[MIX_prediction=="Mel"])/length(MIX_prediction))
+data.frame("CHR" = length(MIX_prediction[MIX_prediction=="CHR"])/length(MIX_prediction),"BLH" = length(MIX_prediction[MIX_prediction=="BLH"])/length(MIX_prediction))
