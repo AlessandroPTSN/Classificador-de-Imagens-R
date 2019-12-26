@@ -3,7 +3,7 @@
 #CARREGANDO AS IMGS "CHR"
 
 library(imager)
-Folder_CHR <- "C:/Users/T-Gamer/Desktop/Photos/CHR"
+Folder_CHR <- "G:/Photos/CHR"
 files_CHR <- list.files(path = Folder_CHR, pattern = "*.jpg", full.names=TRUE)
 all_im_CHR <- lapply(files_CHR, load.image )
 
@@ -28,7 +28,7 @@ resultado_CHR
 #CARREGANDO AS IMGS "BLH"
 
 library(imager)
-Folder_BLH <- "C:/Users/T-Gamer/Desktop/Photos/BLH"
+Folder_BLH <- "G:/Photos/BLH"
 files_BLH <- list.files(path = Folder_BLH, pattern = "*.jpg", full.names=TRUE)
 all_im_BLH <- lapply(files_BLH, load.image )
 for(i in 1:length(all_im_BLH)){
@@ -88,8 +88,8 @@ confusionMatrix(MIX_prediction, as.factor(MIX_test$nome))
 ##############################################################################################
 #TESTANDO O MODELO DE VERDADE
 
-TEST_IMG=load.image("C:/Users/T-Gamer/Desktop/Photos/CHR.jpg")#ESCOLHA ESSA LINHA PARA TESTAR CACHORRO
-TEST_IMG=load.image("C:/Users/T-Gamer/Desktop/Photos/BLH.jpg")#ESCOLHA ESSA LINHA PARA TESTAR BOLINHO
+TEST_IMG=load.image("G:/Photos/CHR.jpg")#ESCOLHA ESSA LINHA PARA TESTAR CACHORRO
+TEST_IMG=load.image("G:/Photos/BLH.jpg")#ESCOLHA ESSA LINHA PARA TESTAR BOLINHO
 plot(TEST_IMG)
 
 TEST_IMG = as.data.frame(grayscale(imresize(TEST_IMG,1/10)))
