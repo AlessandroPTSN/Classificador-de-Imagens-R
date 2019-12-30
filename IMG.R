@@ -6,11 +6,13 @@ library(imager)
 Folder_CHR <- "G:/Photos/CHR"
 files_CHR <- list.files(path = Folder_CHR, pattern = "*.jpg", full.names=TRUE)
 all_im_CHR <- lapply(files_CHR, load.image )
+plot(as.cimg(all_im_CHR[[1]]))
 
 for(i in 1:length(all_im_CHR)){
   all_im_CHR[[i]]=as.data.frame(grayscale(imresize(all_im_CHR[[i]],1/10)))
 }
 head(all_im_CHR[[1]])
+plot(as.cimg(all_im_CHR[[1]]))
 
 
 library(plyr) 
@@ -31,10 +33,13 @@ library(imager)
 Folder_BLH <- "G:/Photos/BLH"
 files_BLH <- list.files(path = Folder_BLH, pattern = "*.jpg", full.names=TRUE)
 all_im_BLH <- lapply(files_BLH, load.image )
+plot(as.cimg(all_im_BLH[[1]]))
+
 for(i in 1:length(all_im_BLH)){
   all_im_BLH[[i]]=as.data.frame(grayscale(imresize(all_im_BLH[[i]],1/10)))
 }
 head(all_im_BLH[[1]])
+plot(as.cimg(all_im_BLH[[1]]))
 
 
 library(plyr) 
