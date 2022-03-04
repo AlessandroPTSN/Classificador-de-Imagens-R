@@ -118,7 +118,7 @@ data.frame("CHR" = length(MIX_prediction[MIX_prediction=="CHR"])/length(MIX_pred
 ```R
         CHR       BLH
 1 0.3177778 0.6822222
-```
+``` 
 
 As 16 imagens foram separadas para treino e teste do modelo e as 2 restantes são usadas para fazer o teste em tempo real.
 Devido ao número extremamente pequeno de imagens, as imagens de teste em tempo real foram escolhidas para melhor expressar os resultados do modelo.
