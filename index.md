@@ -22,7 +22,7 @@ files_BLH <- list.files(path = Folder_BLH, pattern = "*.jpg", full.names=TRUE)
 all_im_BLH <- lapply(files_BLH, load.image )
 plot(all_im_BLH[[1]])
 ```
-
+ 
 <!--
 ![bb](https://user-images.githubusercontent.com/50224653/71566912-2c03d400-2a9a-11ea-8971-c9c953d032f9.png)
 !-->
