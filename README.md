@@ -10,7 +10,10 @@ files_CHR <- list.files(path = Folder_CHR, pattern = "*.jpg", full.names=TRUE)
 all_im_CHR <- lapply(files_CHR, load.image )
 plot(all_im_CHR[[1]])
 ```
+<!--
 ![aa](https://user-images.githubusercontent.com/50224653/71566911-2c03d400-2a9a-11ea-93fa-6d59170fad9b.png)
+!-->
+<img src="https://user-images.githubusercontent.com/50224653/71566911-2c03d400-2a9a-11ea-93fa-6d59170fad9b.png" width="50%" height="50%">
 
 ```R
 library(imager)
@@ -19,7 +22,13 @@ files_BLH <- list.files(path = Folder_BLH, pattern = "*.jpg", full.names=TRUE)
 all_im_BLH <- lapply(files_BLH, load.image )
 plot(all_im_BLH[[1]])
 ```
+
+<!--
 ![bb](https://user-images.githubusercontent.com/50224653/71566912-2c03d400-2a9a-11ea-8971-c9c953d032f9.png)
+!-->
+<img src="https://user-images.githubusercontent.com/50224653/71566912-2c03d400-2a9a-11ea-8971-c9c953d032f9.png" width="50%" height="50%">
+
+
 
 Dá um down scale 90% (24x24) e um grayscale (deixa preto e branco).
 ```R
@@ -29,7 +38,13 @@ for(i in 1:length(all_im_CHR)){
 head(all_im_CHR[[1]])
 plot(as.cimg(all_im_CHR[[1]]))
 ```
+
+<!--
 ![a](https://user-images.githubusercontent.com/50224653/71566908-2c03d400-2a9a-11ea-9494-71e9fb64196a.png)
+!-->
+<img src="https://user-images.githubusercontent.com/50224653/71566908-2c03d400-2a9a-11ea-9494-71e9fb64196a.png" width="50%" height="50%">
+
+
 ```R
 for(i in 1:length(all_im_BLH)){
   all_im_BLH[[i]]=as.data.frame(grayscale(imresize(all_im_BLH[[i]],1/10)))
@@ -37,7 +52,12 @@ for(i in 1:length(all_im_BLH)){
 head(all_im_BLH[[1]])
 plot(as.cimg(all_im_BLH[[1]]))
 ```
+<!--
 ![b](https://user-images.githubusercontent.com/50224653/71566910-2c03d400-2a9a-11ea-938e-f986b67d70a9.png)
+!-->
+<img src="https://user-images.githubusercontent.com/50224653/71566910-2c03d400-2a9a-11ea-938e-f986b67d70a9.png" width="50%" height="50%">
+
+
 
 E por fim usa Randon Florest para fazer o modelo de classificação. 
 ```R
@@ -71,7 +91,12 @@ TEST_IMG=load.image("G:/Photos/CHR.jpg")#ESCOLHA ESSA LINHA PARA TESTAR CACHORRO
 MIX_prediction <- predict(fit.rf, TEST_IMG)
 data.frame("CHR" = length(MIX_prediction[MIX_prediction=="CHR"])/length(MIX_prediction),"BLH" = length(MIX_prediction[MIX_prediction=="BLH"])/length(MIX_prediction))
 ```
+<!--
 ![x](https://user-images.githubusercontent.com/50224653/71567079-45595000-2a9b-11ea-9b0a-7a678f4d1e40.png)
+!-->
+<img src="https://user-images.githubusercontent.com/50224653/71567079-45595000-2a9b-11ea-9b0a-7a678f4d1e40.png" width="50%" height="50%">
+
+
 ```R
         CHR       BLH
 1 0.6188889 0.3811111
@@ -83,7 +108,13 @@ TEST_IMG=load.image("G:/Photos/BLH.jpg")#ESCOLHA ESSA LINHA PARA TESTAR BOLINHO
 MIX_prediction <- predict(fit.rf, TEST_IMG)
 data.frame("CHR" = length(MIX_prediction[MIX_prediction=="CHR"])/length(MIX_prediction),"BLH" = length(MIX_prediction[MIX_prediction=="BLH"])/length(MIX_prediction))
 ```
+
+<!--
 ![y](https://user-images.githubusercontent.com/50224653/71567080-45595000-2a9b-11ea-8d29-83927a75ffaf.png)
+!-->
+<img src="https://user-images.githubusercontent.com/50224653/71567080-45595000-2a9b-11ea-8d29-83927a75ffaf.png" width="50%" height="50%">
+
+
 ```R
         CHR       BLH
 1 0.3177778 0.6822222
